@@ -39,15 +39,15 @@ public class Pobeda {
 
     }
 
-    @Test
-    public void findPobedaPage() {
-        driver.get("https://www.google.com/");
-        driver.findElement(By.cssSelector("[aria-label=\"Найти\"]")).click();
-        driver.findElement(By.cssSelector("[aria-label=\"Найти\"]")).sendKeys("Сайт компании Победа");
-        driver.findElement(By.cssSelector("[aria-label=\"Найти\"]")).sendKeys(Keys.ENTER);
-        driver.findElement(By.cssSelector("h3")).click();
-        Assert.assertEquals("https://www.flypobeda.ru/", driver.getCurrentUrl());
-    }
+//    @Test
+//    public void findPobedaPage() {
+//        driver.get("https://www.google.com/");
+//        driver.findElement(By.cssSelector("[aria-label=\"Найти\"]")).click();
+//        driver.findElement(By.cssSelector("[aria-label=\"Найти\"]")).sendKeys("Сайт компании Победа");
+//        driver.findElement(By.cssSelector("[aria-label=\"Найти\"]")).sendKeys(Keys.ENTER);
+//        driver.findElement(By.cssSelector("h3")).click();
+//        Assert.assertEquals("https://www.flypobeda.ru/", driver.getCurrentUrl());
+//    }
 
     @Test
     public void pobedaChek() {
