@@ -1,6 +1,7 @@
 
 package pobeda;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class Pobeda {
         driver.get("https://www.flypobeda.ru/");
     }
 
-    @AfterMethod
+    @After
     public void tearDown() {
         driver.quit();
     }
