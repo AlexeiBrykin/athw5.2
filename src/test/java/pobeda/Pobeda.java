@@ -20,6 +20,9 @@ import org.slf4j.LoggerFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.with;
 
 @Slf4j
 public class Pobeda {
@@ -65,12 +68,44 @@ public class Pobeda {
         log.info("Успешно найден Калининград");
         Assert.assertTrue(driver.findElement(By.cssSelector(".dp-5myq2-root[src*=\"Kaliningrad_banner_fall_d1902e0766.jpg\"]")).isDisplayed());
         log.info("Отображается картинка Калининград");
+
+        //3 шаг переключить язык
+        driver.findElement(By.cssSelector("button.dp-etauof-root-root")).click();
+        log.info("клик на выбор языка");
+        driver.findElement(By.cssSelector(".dp-1loxy1b-root .dp-1ct2iey-root div.dp-8gxax4-root-root[role=\"menuitem\"]:nth-child(2)")).click();
+        log.info("клик на английский");
+        Assert.assertEquals("Ticket search",driver.findElement(By.cssSelector("div.dp-3iyfpf-container-container > button[data-active=\"true\"]")).getText());
+        Assert.assertEquals("Online check-in",driver.findElement(By.cssSelector("div.dp-3iyfpf-container-container > button:nth-child(2)")).getText());
+        Assert.assertEquals("Manage my booking",driver.findElement(By.cssSelector("div.dp-3iyfpf-container-container > button:nth-child(3)")).getText());
+        log.info("текст на английском отобразился");
     }
 
 
     @After
     public void tearDown() {
         driver.quit();
+    }
+    public static void waitVisibleElement(WebElement we) {
+        with().pollDelay(100, TimeUnit.MILLISECONDS).await().atMost(10, TimeUnit.SECONDS).until(we::isDisplayed);
+    }
+
+    public static void waitForVisibilityOfElement(WebElement element) {
+        float waitingTime = 0;
+        float MAX_WAITING_TIME = 1000;
+        float startLoadingTime = System.currentTimeMillis();
+
+
+        while (!element.isDisplayed()) {
+            if (waitingTime <= MAX_WAITING_TIME) {
+                waitingTime = System.currentTimeMillis() - startLoadingTime;
+            } else {
+                System.out.println("Время вышло");
+                break;
+            }
+        }
+        if (element.isDisplayed()) {
+            System.out.println("Элемент найден за" + waitingTime + " секунд");
+        }
     }
 
 }
